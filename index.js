@@ -4,6 +4,8 @@ var path = require('path');
 var sqlite3 = require('sqlite3');
 var app = express();
 
+var port = process.env.PORT || 1284;
+
 var db = new sqlite3.Database('attendance.db');
 db.serialize(function() {
 
@@ -42,5 +44,5 @@ db.serialize(function() {
 
 	app.use('/app', express.static(path.join(__dirname, 'app')));
 
-	app.listen(process.env.PORT || 81, () => console.log('port at 81 or '+process.env.PORT));
+	app.listen(port, () => console.log('port at '+port));
 });
