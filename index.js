@@ -42,5 +42,5 @@ db.serialize(function() {
 
 	app.use('/app', express.static(path.join(__dirname, 'app')));
 
-	app.listen(81, () => console.log('port at 81'));
+	app.listen(process.env.PORT || 81, () => console.log('port at 81 or '+process.env.PORT));
 });
