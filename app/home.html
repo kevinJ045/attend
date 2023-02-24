@@ -30,6 +30,7 @@ export default (props, { $f7, $el, $on, $store, $theme, $update } ) => {
 	function f(){
 		$f7.dialog.prompt("Input name", "Attend as", (n) => {
 			name = n;
+			if(name != "oli" && name != "josi" && name != "yoseph" && name != "ceo" && name != "abuki" && name != "admin") return f();
 			$.ajax("/attended?name="+name).done(e => e == "true" ? (attended = true ? $update() : "") : false);
 			$update();
 		}, f);
