@@ -1,0 +1,88 @@
+<template>
+	<div class="page">
+		<div class="page-content">
+			<div class="block align-center">
+
+				<div class="block-title-large">${name}</div>
+				<br />
+				
+				<button class="button ${attended ? "button-outline" : "button-fill"} button-attend button-preloader" @click="${attend}"><span class="preloader"></span>${attended ? "Attended" : "Attend"}</button>
+				<br />
+				<div class="row">
+					<div class="col-50"><button class="button button-fill col-50" @click="${viewT}">Today</button></div>
+					<div class="col-50"><button class="button button-fill col-50" @click="${viewA}">All</button></div>
+				</div>
+				<br />
+				<a href="#" class="link popup-close" @click=${reload}>Logout</a>
+
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+export default (props, { $f7, $el, $on, $store, $theme, $update } ) => {
+
+	var name = "user";
+	var attended = false;
+
+	function reload() { location.reload() }
+
+	function f(){
+		$f7.dialog.prompt("Input name", "Attend as", (n) => {
+			name = n;
+			$.ajax("/attended?name="+name).done(e => e == "true" ? (attended = true ? $update() : "") : false);
+			$update();
+		}, f);
+	}
+	f();
+
+	function attend(){
+		if(attended) return;
+		$('.button-attend').addClass('button-loading');
+		setTimeout(function() {
+			attended = true;
+			$update();
+			$.post("/attend?name="+name).done(e => ($('.button-attend').removeClass('button-loading') ? attended = true : ""));
+		}, 500);
+	}
+	function viewA(){
+		var tables = {};
+		$.ajax("/attendance").done((attends) => {
+			attends.forEach(attend => {
+				if(!tables[attend.date]) tables[attend.date] = [];
+				tables[attend.date].push(attend.name);
+			});
+
+			var html = "";
+
+			for(var i in tables){
+				html += "<div class=\"block-header\">"+i+"</div><div class=\"list simple-list inset\"><ul>";
+				tables[i].forEach(item => html += '<li>'+Cap(item)+'</li>');
+				html += "</ul></div>";
+			}
+			$f7.createPopup(html, "All attendances");
+		});
+	}
+
+	function viewT(){
+		var tables = {};
+		$.ajax("/attendance/today").done((attends) => {
+			attends.forEach(attend => {
+				if(!tables[attend.date]) tables[attend.date] = [];
+				tables[attend.date].push(attend.name);
+			});
+
+			var html = "";
+
+			for(var i in tables){
+				html += "<div class=\"list simple-list inset\"><ul>";
+				tables[i].forEach(item => html += '<li>'+Cap(item)+'</li>');
+				html += "</ul></div>";
+			}
+			$f7.createPopup(html, "Today's attendance");
+		});
+	}
+
+	return $render;
+}
+</script>

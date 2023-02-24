@@ -1,0 +1,59 @@
+@import url("fonts.css");
+
+:root{
+	--f7-theme-color: #eba0ac;
+  --f7-theme-color-rgb: 235, 160, 172;
+	--f7-preloader-color: var(--f7-page-bg-color);
+	--f7-page-bg-color: #1e1e2e;
+	--f7-page-text-color: rgba(255, 255, 255, 0.7);
+	--f7-dialog-text-color: var(--f7-page-text-color);
+	--f7-block-title-large-text-color: #fff;
+	--f7-block-header-text-color: #fff;
+	--f7-dialog-title-text-color: var(--f7-dialog-text-color);
+	--f7-popup-text-color: var(--f7-dialog-text-color);
+	--f7-block-title-text-color: var(--f7-dialog-text-color);
+	--f7-button-fill-text-color: var(--f7-page-bg-color);
+	--f7-dialog-input-bg-color: var(--f7-page-bg-color);
+	--f7-dialog-bg-color: var(--f7-page-bg-color);
+	--f7-popup-bg-color: var(--f7-page-bg-color);
+	--f7-list-item-border-color: var(--f7-dialog-text-color);
+	--f7-list-bg-color: transparent;
+}
+
+body{
+	zoom: 70%;
+}
+
+.align-center{
+	height: 300px;
+	width: 200px;
+	margin-left: -25px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.align-center .block-title-large{
+	text-align: center;
+	width: 100%;
+	margin-left: 20px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.align-center a{
+	margin-left: 45px !important;
+}
+
+.align-center .button:not(col-50){
+	max-width: 200px;
+	margin: 7px 25px;
+}
+
+.popup{
+	background: var(--f7-popup-bg-color);
+	color: var(--f7-popup-text-color);
+}
