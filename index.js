@@ -42,7 +42,8 @@ db.serialize(function() {
   });
 
 
-	app.use(['/', '/app'], express.static(path.join(__dirname, 'app')));
+	app.use('/', express.static(path.join(__dirname, 'app')));
+	app.use('/app', express.static(path.join(__dirname, 'app')));
 
 	app.listen(port, () => console.log('port at '+port));
 });
